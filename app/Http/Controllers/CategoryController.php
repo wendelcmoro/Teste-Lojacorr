@@ -67,6 +67,15 @@ class CategoryController extends Controller
 		}
 
         $category = Category::with('subcategories')->where('id', $request->id)->first();
+        if (!$category) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'msg' => 'Category not found',
+                ],
+                404
+            );
+        }
         $category->delete();
 
         return response()->json(
