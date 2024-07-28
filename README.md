@@ -26,28 +26,28 @@ Teste Lojacorr
 
 ## 2.1 Instalando Dependências e configurando variáveis de ambiente
 
-Para iniciarmos, precisamos instalar as dependências com o **composer**:
+Para começarmos, precisamos instalar as dependências com o **composer**:
 
 ```console
 composer i
 ```
 
-Após isso, precisamos configurar as variáveis de ambiente, para isso executaremos o comando a seguir:
+Após isso, precisamos configurar as variáveis de ambiente copiando o arquivo de exemplo:
 
 ```console
 cp .env.example .env
 ```
 
-Em seguida, necessitamos alterar as variáveis de ambiente, no caso as variáveis de banco de dados conforme a seguir:
+Em seguida, precisamos configurar as variáveis de acesso ao banco de dados conforme a seguir:
 
 - DB_CONNECTION=mysql
-- DB_HOST=laravel_db
+- DB_HOST=127.0.0.1
 - DB_PORT=3306
 - DB_DATABASE=laravel
 - DB_USERNAME=laravel
 - DB_PASSWORD=secret
 
-As variáveis aqui definidas foram utilizadas na máquina local, então ao configurar o banco de dados, você pode utilizar as configurações acima, ou as configuraçõe de sua escolha.
+As variáveis aqui definidas foram utilizadas como exemplo, então ao configurar o seu ambiente local você pode utilizar as configurações acima ou de sua escolha.
 
 ## 2.2 Iniciando o projeto
 
@@ -77,21 +77,21 @@ Agora nosso projeto é acessável da através da url:
 
 ## 2.3 Listagem das rotas
 
-Aqui está sendo listado as rotas da **API**:
+Ao executar projeto, as seguintes rotas da **API** estão disponíveis:
 
 - POST '/api/category'
 - GET '/api/categories?id=1' **(o parâmetro id é opcional)**
 - DELETE '/api/category'
 
-Mais detalhes das rotas podem ser encontradas na documentação do swagger
+Mais detalhes das rotas podem ser encontradas na documentação do swagger.
 
 # 3. Execução do projeto com Docker
 
-Aqui nesta seção serão oferecidas algumas instruções para execução do projeto com docker.
+Aqui nesta seção, serão oferecidas algumas instruções para execução do projeto utilizando docker.
 
 ## 3.1 Configurando variáveis de ambiente
 
-Diferente do padrão, aqui só teremos de configurar nossa variável de ambiente, então executamos o seguinte comando:
+Diferente do padrão, aqui só teremos de configurar nossa variável de ambiente, então vamos copiar o arquivo de exemplo:
 
 ```console
 cp .env.example .env
@@ -106,17 +106,19 @@ E alteramos o conteúdo do .env:
 - DB_USERNAME=laravel
 - DB_PASSWORD=secret
 
-Por padrão, o docker irá montar uma imagem do MariaDB com as configurações acima, o nosso host precisa ser o nome do container para que o projeto tenha permissão de acesso ao banco na rede interna do docker.
+Por padrão, o arquivo de configuração do docker irá montar uma imagem do MariaDB com as configurações definidas acima. Note que a variável indicando o host do banco precisa ser o nome do container(**laravel_db**) para que seja possível o acesso na rede interna do docker.
 
 ## 3.2 Montando os containers
 
-Agora só nos resta montar os containers, para isso executamos inicialmente o comando:
+Por fim, agora só nos resta montar os containers, para isso executamos o comando à seguir:
 
 ```console
 sudo docker-compose up --build -d
 ```
 
-Ao final do processo, teremos 2 containers: **laravel_app** e **laravel_db**. A princípio, para acessar a aplicação basta acessar a url: 
+Ao final do processo, devemos ter 2 containers executando: **laravel_app** e **laravel_db**.
+
+A princípio, para acessar a aplicação basta acessar a url: 
 
 - http://localhost:8000 
 
@@ -125,7 +127,7 @@ Ou a página com a documentação do swagger:
 
 - http://localhost:8000/api/documentation
 
-**Observação**: a aplicação não vai estar disponível imediatamente, pois o comando **composer install** precisa instalar as dependências primeiro, isso pode demorar alguns instantes. Para checar o progresso da instalação das dependências pode ser utilizado o seguinte comando:
+**Observação**: a aplicação pode não estar disponível imediatamente, pois o comando **composer install** pode estar instalando as dependências, o que pode demorar alguns instantes. Caso queira, você pode checar o progresso da instalação das dependências com o comando:
 
 ```console
 sudo docker-compose logs app
